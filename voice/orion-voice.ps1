@@ -92,10 +92,11 @@ function Hablar {
 
     Write-Host "--- salida de piper ---" -ForegroundColor DarkGray
     $Texto | & $PiperExe --model $PiperVoice --output_file $wav
-    Write-Host "--- fin salida de piper ---" -ForegroundColor DarkGray
+    $exitCode = $LASTEXITCODE
+    Write-Host "--- fin salida de piper (codigo $exitCode) ---" -ForegroundColor DarkGray
 
     if (-not (Test-Path $wav) -or (Get-Item $wav).Length -eq 0) {
-        Write-Host "Piper no genero el audio. Revisa el mensaje de arriba (ruta de PiperVoice/PiperExe en CONFIG)." -ForegroundColor Red
+        Write-Host "Piper no genero el audio (codigo $exitCode). Revisa que junto a piper.exe este la carpeta 'espeak-ng-data' (viene en el mismo .zip que descargaste) y que PiperVoice/PiperExe en CONFIG sean correctos." -ForegroundColor Red
         return
     }
     & $SoxExe $wav -t waveaudio -d
