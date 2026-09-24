@@ -164,7 +164,7 @@ function Guardar-Log {
 "@ | Out-File $logFile -Append -Encoding utf8
 }
 
-Write-Host "=== ORION - circuito de voz ===" -ForegroundColor Cyan
+Write-Host "=== ORION - circuito de voz (build 2026-09-24-07) ===" -ForegroundColor Cyan
 Write-Host "Ctrl+C para salir." -ForegroundColor DarkGray
 
 while ($true) {
