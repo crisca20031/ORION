@@ -52,7 +52,11 @@ function Grabar-Audio {
     # SoX corta la grabacion solo, despues de 1.5s de silencio, y cierra el
     # archivo correctamente (evita matar el proceso a la fuerza, que dejaba
     # el .wav vacio o corrupto).
-    & $SoxExe -t waveaudio -d $OutFile rate 16000 silence 1 0.1 2% 1 1.5 2%
+    # IMPORTANTE: se redirige con 2>&1 | Out-Host para que la salida de SoX
+    # se muestre en pantalla pero NO se filtre dentro del valor que
+    # devuelve esta funcion (si no, "return $true/$false" se mezcla con esa
+    # salida y el llamador recibe un arreglo en vez de un booleano limpio).
+    & $SoxExe -t waveaudio -d $OutFile rate 16000 silence 1 0.1 2% 1 1.5 2% 2>&1 | Out-Host
 
     if (-not (Test-Path $OutFile) -or (Get-Item $OutFile).Length -eq 0) {
         Write-Host "No se grabo nada. Revisa que SoX tenga permiso de usar el microfono (Configuracion > Privacidad > Microfono) o que la ruta de SoX en CONFIG sea correcta." -ForegroundColor Red
@@ -64,7 +68,7 @@ function Grabar-Audio {
     # repita la ultima frase. Se recortan aca, sobre el archivo ya cerrado.
     $trimmed = Join-Path $TempDir "grabacion_trim.wav"
     if (Test-Path $trimmed) { Remove-Item $trimmed -Force }
-    & $SoxExe $OutFile $trimmed reverse silence 1 0.1 2% reverse
+    & $SoxExe $OutFile $trimmed reverse silence 1 0.1 2% reverse 2>&1 | Out-Null
     if ((Test-Path $trimmed) -and (Get-Item $trimmed).Length -gt 0) {
         Move-Item -Force $trimmed $OutFile
     }
@@ -97,7 +101,12 @@ function Transcribir {
     # -bs 1 (beam size 1, decodificacion "greedy"): mucho mas rapido que el
     # default (5 beams) y evita que repita la ultima frase por el silencio
     # que queda al final de la grabacion.
-    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt -bs 1 -bo 1
+    # 2>&1 | Out-Host: la salida se muestra en pantalla pero NO se mete
+    # dentro del "return" de esta funcion (era la causa real de la
+    # "duplicacion" del texto: el resultado se mezclaba con toda esta
+    # salida de diagnostico y quedaba como un arreglo de varios elementos
+    # en vez de una sola cadena de texto).
+    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt -bs 1 -bo 1 2>&1 | Out-Host
     $exitCode = $LASTEXITCODE
     Write-Host "--- fin salida de whisper.cpp ---" -ForegroundColor DarkGray
 
@@ -164,7 +173,7 @@ function Guardar-Log {
 "@ | Out-File $logFile -Append -Encoding utf8
 }
 
-Write-Host "=== ORION - circuito de voz (build 2026-09-24-07) ===" -ForegroundColor Cyan
+Write-Host "=== ORION - circuito de voz (build 2026-09-24-08) ===" -ForegroundColor Cyan
 Write-Host "Ctrl+C para salir." -ForegroundColor DarkGray
 
 while ($true) {
@@ -172,10 +181,7 @@ while ($true) {
     if (-not (Grabar-Audio -OutFile $audioFile)) { continue }
 
     Write-Host "Transcribiendo..." -ForegroundColor DarkGray
-    $textoCrudo = Transcribir -AudioFile $audioFile
-    Write-Host "DEBUG crudo: [$textoCrudo] (largo $($textoCrudo.Length))" -ForegroundColor Magenta
-    $texto = Quitar-Duplicado $textoCrudo
-    Write-Host "DEBUG despues de dedup: [$texto]" -ForegroundColor Magenta
+    $texto = Quitar-Duplicado (Transcribir -AudioFile $audioFile)
     if ([string]::IsNullOrWhiteSpace($texto)) { Write-Host "No se entendio nada, proba de nuevo."; continue }
     Write-Host "Vos: $texto" -ForegroundColor Green
 
