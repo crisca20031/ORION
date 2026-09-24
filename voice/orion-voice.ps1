@@ -72,6 +72,17 @@ function Grabar-Audio {
     return $true
 }
 
+function Quitar-Duplicado {
+    param([string]$Texto)
+    # whisper.cpp tiene un bug conocido: en audios cortos, a veces repite
+    # toda la frase dos veces seguidas, incluso en modo greedy. Si el texto
+    # es "X. X." (la misma frase dos veces), nos quedamos con una copia.
+    if ($Texto -match '^(?<a>.{4,}?)[.!?\xbf\xa1]*\s+\k<a>[.!?\xbf\xa1]*$') {
+        return $Matches['a'].Trim()
+    }
+    return $Texto
+}
+
 function Transcribir {
     param([string]$AudioFile)
     $txtBase = Join-Path $TempDir "out"
@@ -152,7 +163,7 @@ while ($true) {
     if (-not (Grabar-Audio -OutFile $audioFile)) { continue }
 
     Write-Host "Transcribiendo..." -ForegroundColor DarkGray
-    $texto = Transcribir -AudioFile $audioFile
+    $texto = Quitar-Duplicado (Transcribir -AudioFile $audioFile)
     if ([string]::IsNullOrWhiteSpace($texto)) { Write-Host "No se entendio nada, proba de nuevo."; continue }
     Write-Host "Vos: $texto" -ForegroundColor Green
 
