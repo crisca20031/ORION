@@ -14,7 +14,7 @@ Las rutas de `orion-voice.ps1` ya están ajustadas a esta instalación:
 | Programa | Ruta |
 |---|---|
 | Claude Code | instalado global (`npm install -g @anthropic-ai/claude-code`) |
-| whisper.cpp | `C:\orion\whisper.cpp\main.exe` |
+| whisper.cpp | `C:\orion\whisper.cpp\whisper-cli.exe` |
 | Modelo de voz a texto | `C:\orion\whisper.cpp\models\ggml-medium.bin` |
 | Piper | `C:\orion\piper\piper.exe` |
 | Voz de Piper | `C:\orion\piper\es_AR-daniela-high.onnx` |

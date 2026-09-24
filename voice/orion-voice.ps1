@@ -23,7 +23,7 @@
 #>
 
 # ---------- CONFIG (ajusta estas rutas a tu instalacion) ----------
-$WhisperExe   = "C:\orion\whisper.cpp\main.exe"
+$WhisperExe   = "C:\orion\whisper.cpp\whisper-cli.exe"
 $WhisperModel = "C:\orion\whisper.cpp\models\ggml-medium.bin"
 $PiperExe     = "C:\orion\piper\piper.exe"
 $PiperVoice   = "C:\orion\piper\es_AR-daniela-high.onnx"
