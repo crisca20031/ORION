@@ -81,7 +81,7 @@ function Transcribir {
     # -bs 1 (beam size 1, decodificacion "greedy"): mucho mas rapido que el
     # default (5 beams) y evita que repita la ultima frase por el silencio
     # que queda al final de la grabacion.
-    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt -bs 1
+    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt -bs 1 -bo 1
     $exitCode = $LASTEXITCODE
     Write-Host "--- fin salida de whisper.cpp ---" -ForegroundColor DarkGray
 
@@ -109,8 +109,18 @@ function Hablar {
     if (Test-Path $wav) { Remove-Item $wav -Force }
 
     Write-Host "--- salida de piper ---" -ForegroundColor DarkGray
-    $Texto | & $PiperExe --model $PiperVoice --output_file $wav
-    $exitCode = $LASTEXITCODE
+    # Piper busca su carpeta 'espeak-ng-data' de forma relativa: si se lo
+    # corre parado en otra carpeta, no la encuentra y crashea (codigo
+    # -1073740791) sin importar el texto. Nos paramos en su carpeta antes
+    # de llamarlo.
+    $piperDir = Split-Path $PiperExe -Parent
+    Push-Location $piperDir
+    try {
+        $Texto | & $PiperExe --model $PiperVoice --output_file $wav
+        $exitCode = $LASTEXITCODE
+    } finally {
+        Pop-Location
+    }
     Write-Host "--- fin salida de piper (codigo $exitCode) ---" -ForegroundColor DarkGray
 
     if (-not (Test-Path $wav) -or (Get-Item $wav).Length -eq 0) {
