@@ -26,8 +26,8 @@
 $WhisperExe   = "C:\orion\whisper.cpp\main.exe"
 $WhisperModel = "C:\orion\whisper.cpp\models\ggml-medium.bin"
 $PiperExe     = "C:\orion\piper\piper.exe"
-$PiperVoice   = "C:\orion\piper\es_AR-voice.onnx"
-$SoxExe       = "C:\orion\sox\sox.exe"
+$PiperVoice   = "C:\orion\piper\es_AR-daniela-high.onnx"
+$SoxExe       = "C:\Program Files (x86)\sox-14-4-2\sox.exe"
 $VaultPedidos = Join-Path $PSScriptRoot "..\vault\pedidos"
 $TempDir      = Join-Path $env:TEMP "orion-voice"
 $RecordKey    = [System.ConsoleKey]::Spacebar

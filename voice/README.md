@@ -6,23 +6,21 @@ se reproduce. Cada pedido y respuesta queda en `vault/pedidos/AAAA-MM-DD.md`.
 
 Nada de esto sale de tu máquina.
 
-## Instalar antes de correrlo
+## Ya instalado en esta máquina
 
-1. **Claude Code**
-   ```powershell
-   npm install -g @anthropic-ai/claude-code
-   ```
-2. **whisper.cpp** (voz → texto, local) — https://github.com/ggerganov/whisper.cpp
-   Compilalo o bajá un release para Windows, y un modelo en español
-   (`ggml-medium.bin` anda bien; `large-v3` si querés más precisión con
-   acento rioplatense).
-3. **Piper** (texto → voz, local) — https://github.com/rhasspy/piper
-   Bajá el binario para Windows y una voz en castellano (`es_AR` o `es_ES`).
-4. **SoX** (grabar/reproducir audio desde la terminal) —
-   https://sourceforge.net/projects/sox/
+Las rutas de `orion-voice.ps1` ya están ajustadas a esta instalación:
 
-Después, abrí `orion-voice.ps1` y ajustá las rutas de la sección `CONFIG`
-a donde instalaste cada cosa.
+| Programa | Ruta |
+|---|---|
+| Claude Code | instalado global (`npm install -g @anthropic-ai/claude-code`) |
+| whisper.cpp | `C:\orion\whisper.cpp\main.exe` |
+| Modelo de voz a texto | `C:\orion\whisper.cpp\models\ggml-medium.bin` |
+| Piper | `C:\orion\piper\piper.exe` |
+| Voz de Piper | `C:\orion\piper\es_AR-daniela-high.onnx` |
+| SoX | `C:\Program Files (x86)\sox-14-4-2\sox.exe` |
+
+Si en algún momento reinstalás algo en otra ubicación, actualizá la
+sección `CONFIG` al principio de `orion-voice.ps1` con la ruta nueva.
 
 ## Correrlo
 
