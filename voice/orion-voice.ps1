@@ -51,6 +51,17 @@ function Grabar-Audio {
         Write-Host "No se grabo nada. Revisa que SoX tenga permiso de usar el microfono (Configuracion > Privacidad > Microfono) o que la ruta de SoX en CONFIG sea correcta." -ForegroundColor Red
         return $false
     }
+
+    # Los 1.5s de silencio que quedan pegados al final (necesarios para
+    # detectar que dejaste de hablar) hacen que whisper.cpp "alucine" y
+    # repita la ultima frase. Se recortan aca, sobre el archivo ya cerrado.
+    $trimmed = Join-Path $TempDir "grabacion_trim.wav"
+    if (Test-Path $trimmed) { Remove-Item $trimmed -Force }
+    & $SoxExe $OutFile $trimmed reverse silence 1 0.1 2% reverse
+    if ((Test-Path $trimmed) -and (Get-Item $trimmed).Length -gt 0) {
+        Move-Item -Force $trimmed $OutFile
+    }
+
     return $true
 }
 
@@ -63,7 +74,7 @@ function Transcribir {
     # -bs 1 (beam size 1, decodificacion "greedy"): mucho mas rapido que el
     # default (5 beams) y evita que repita la ultima frase por el silencio
     # que queda al final de la grabacion.
-    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt -bs 1
+    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt -bs 1 -nc
     $exitCode = $LASTEXITCODE
     Write-Host "--- fin salida de whisper.cpp ---" -ForegroundColor DarkGray
 
