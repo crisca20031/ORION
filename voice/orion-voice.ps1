@@ -32,6 +32,13 @@ $VaultPedidos = Join-Path $PSScriptRoot "..\vault\pedidos"
 $TempDir      = Join-Path $env:TEMP "orion-voice"
 # --------------------------------------------------------------------
 
+# Forzar UTF-8 en toda la consola: sin esto, el texto con tildes que se le
+# pasa a Piper por la tuberia (|) puede llegar mal codificado y hacerlo
+# fallar (crash con codigo -1073740791).
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::InputEncoding  = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
 New-Item -ItemType Directory -Force -Path $TempDir, $VaultPedidos | Out-Null
 
 function Grabar-Audio {
