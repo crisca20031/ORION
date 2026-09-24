@@ -81,7 +81,7 @@ function Transcribir {
     # -bs 1 (beam size 1, decodificacion "greedy"): mucho mas rapido que el
     # default (5 beams) y evita que repita la ultima frase por el silencio
     # que queda al final de la grabacion.
-    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt -bs 1 -nc
+    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt -bs 1
     $exitCode = $LASTEXITCODE
     Write-Host "--- fin salida de whisper.cpp ---" -ForegroundColor DarkGray
 
