@@ -60,7 +60,7 @@ function Transcribir {
     if (Test-Path "$txtBase.txt") { Remove-Item "$txtBase.txt" -Force }
 
     Write-Host "--- salida de whisper.cpp ---" -ForegroundColor DarkGray
-    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase
+    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt
     $exitCode = $LASTEXITCODE
     Write-Host "--- fin salida de whisper.cpp ---" -ForegroundColor DarkGray
 
@@ -72,7 +72,7 @@ function Transcribir {
         Write-Host "whisper.cpp no genero el archivo de texto. Revisa el mensaje de arriba." -ForegroundColor Red
         return ""
     }
-    return (Get-Content "$txtBase.txt" -Raw).Trim()
+    return (Get-Content "$txtBase.txt" -Raw -Encoding UTF8).Trim()
 }
 
 function Preguntar-Claude {
@@ -83,7 +83,16 @@ function Preguntar-Claude {
 function Hablar {
     param([string]$Texto)
     $wav = Join-Path $TempDir "respuesta.wav"
+    if (Test-Path $wav) { Remove-Item $wav -Force }
+
+    Write-Host "--- salida de piper ---" -ForegroundColor DarkGray
     $Texto | & $PiperExe --model $PiperVoice --output_file $wav
+    Write-Host "--- fin salida de piper ---" -ForegroundColor DarkGray
+
+    if (-not (Test-Path $wav) -or (Get-Item $wav).Length -eq 0) {
+        Write-Host "Piper no genero el audio. Revisa el mensaje de arriba (ruta de PiperVoice/PiperExe en CONFIG)." -ForegroundColor Red
+        return
+    }
     & $SoxExe $wav -t waveaudio -d
 }
 
