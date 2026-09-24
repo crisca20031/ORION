@@ -77,10 +77,15 @@ function Quitar-Duplicado {
     # whisper.cpp tiene un bug conocido: en audios cortos, a veces repite
     # toda la frase dos veces seguidas, incluso en modo greedy. Si el texto
     # es "X. X." (la misma frase dos veces), nos quedamos con una copia.
-    if ($Texto -match '^(?<a>.{4,}?)[.!?\xbf\xa1]*\s+\k<a>[.!?\xbf\xa1]*$') {
+    # Se normaliza a NFC antes de comparar: las dos copias pueden traer la
+    # misma letra acentuada representada con Unicode distinto (compuesto vs
+    # descompuesto), lo que hace que una comparacion exacta no las detecte
+    # como iguales aunque se vean identicas en pantalla.
+    $normalizado = $Texto.Normalize([System.Text.NormalizationForm]::FormC)
+    if ($normalizado -match '^(?<a>.{4,}?)[.!?\xbf\xa1]*\s+\k<a>[.!?\xbf\xa1]*$') {
         return $Matches['a'].Trim()
     }
-    return $Texto
+    return $normalizado
 }
 
 function Transcribir {
@@ -120,14 +125,18 @@ function Hablar {
     if (Test-Path $wav) { Remove-Item $wav -Force }
 
     Write-Host "--- salida de piper ---" -ForegroundColor DarkGray
-    # Piper busca su carpeta 'espeak-ng-data' de forma relativa: si se lo
-    # corre parado en otra carpeta, no la encuentra y crashea (codigo
-    # -1073740791) sin importar el texto. Nos paramos en su carpeta antes
-    # de llamarlo.
+    # En vez de pasarle el texto por la tuberia de PowerShell (|), que en
+    # algunos builds de Windows llega mal a programas nativos y los hace
+    # crashear (codigo -1073740791), se escribe a un archivo UTF-8 sin BOM
+    # y se lo redirige como entrada estandar via cmd.exe, byte a byte.
+    $txtIn = Join-Path $TempDir "respuesta_in.txt"
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($txtIn, $Texto, $utf8NoBom)
+
     $piperDir = Split-Path $PiperExe -Parent
     Push-Location $piperDir
     try {
-        $Texto | & $PiperExe --model $PiperVoice --output_file $wav
+        cmd /c "`"$PiperExe`" --model `"$PiperVoice`" --output_file `"$wav`" < `"$txtIn`""
         $exitCode = $LASTEXITCODE
     } finally {
         Pop-Location
