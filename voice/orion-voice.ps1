@@ -2,7 +2,7 @@
 .SYNOPSIS
     Circuito de voz de ORION (paso 3 de la guia) para Windows.
 
-    Mantene apretada una tecla para grabar, soltala para procesar:
+    Apreta ENTER para grabar; se corta solo tras 1.5s de silencio:
     grabar -> whisper.cpp (voz a texto, local) -> Claude Code -> Piper (texto a voz, local) -> reproducir.
     Cada pedido y respuesta se guarda en vault/pedidos/ con fecha y hora.
 
@@ -30,25 +30,22 @@ $PiperVoice   = "C:\orion\piper\es_AR-daniela-high.onnx"
 $SoxExe       = "C:\Program Files (x86)\sox-14-4-2\sox.exe"
 $VaultPedidos = Join-Path $PSScriptRoot "..\vault\pedidos"
 $TempDir      = Join-Path $env:TEMP "orion-voice"
-$RecordKey    = [System.ConsoleKey]::Spacebar
 # --------------------------------------------------------------------
 
 New-Item -ItemType Directory -Force -Path $TempDir, $VaultPedidos | Out-Null
 
 function Grabar-Audio {
     param([string]$OutFile)
-    Write-Host "Mantene SPACE apretada para hablar, soltala para terminar..." -ForegroundColor Yellow
-    while (-not [Console]::KeyAvailable) { Start-Sleep -Milliseconds 50 }
-    $key = [Console]::ReadKey($true)
-    if ($key.Key -ne $RecordKey) { return $false }
+    Write-Host "Apreta ENTER y empeza a hablar. Se corta solo cuando dejes de hablar." -ForegroundColor Yellow
+    [Console]::ReadKey($true) | Out-Null
 
     if (Test-Path $OutFile) { Remove-Item $OutFile -Force }
-    $proc = Start-Process -FilePath $SoxExe -ArgumentList "-t waveaudio -d `"$OutFile`" rate 16000" -PassThru -WindowStyle Hidden
-    Write-Host "Grabando... solta SPACE para parar." -ForegroundColor Red
-    while ([Console]::KeyAvailable -and [Console]::ReadKey($true).Key -eq $RecordKey) { }
-    Start-Sleep -Milliseconds 150
-    Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue
-    Start-Sleep -Milliseconds 300
+    Write-Host "Grabando... habla ahora." -ForegroundColor Red
+
+    # SoX corta la grabacion solo, despues de 1.5s de silencio, y cierra el
+    # archivo correctamente (evita matar el proceso a la fuerza, que dejaba
+    # el .wav vacio o corrupto).
+    & $SoxExe -t waveaudio -d $OutFile rate 16000 silence 1 0.1 2% 1 1.5 2%
 
     if (-not (Test-Path $OutFile) -or (Get-Item $OutFile).Length -eq 0) {
         Write-Host "No se grabo nada. Revisa que SoX tenga permiso de usar el microfono (Configuracion > Privacidad > Microfono) o que la ruta de SoX en CONFIG sea correcta." -ForegroundColor Red

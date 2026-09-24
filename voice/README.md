@@ -1,8 +1,9 @@
 # Paso 3 — La voz (Windows)
 
-Circuito: mantenés SPACE para hablar → whisper.cpp pasa tu audio a texto →
-se lo mandás a Claude Code → la respuesta se convierte en audio con Piper →
-se reproduce. Cada pedido y respuesta queda en `vault/pedidos/AAAA-MM-DD.md`.
+Circuito: apretás ENTER y hablás (se corta solo tras 1.5s de silencio) →
+whisper.cpp pasa tu audio a texto → se lo mandás a Claude Code → la
+respuesta se convierte en audio con Piper → se reproduce. Cada pedido y
+respuesta queda en `vault/pedidos/AAAA-MM-DD.md`.
 
 Nada de esto sale de tu máquina.
 
@@ -28,7 +29,8 @@ sección `CONFIG` al principio de `orion-voice.ps1` con la ruta nueva.
 powershell -ExecutionPolicy Bypass -File .\voice\orion-voice.ps1
 ```
 
-Mantené SPACE apretada, hablá, soltala. `Ctrl+C` para salir.
+Apretá ENTER, hablá, y esperá — se corta solo tras 1.5s de silencio.
+`Ctrl+C` para salir.
 
 ## Si se complica
 
