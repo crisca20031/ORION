@@ -172,7 +172,10 @@ while ($true) {
     if (-not (Grabar-Audio -OutFile $audioFile)) { continue }
 
     Write-Host "Transcribiendo..." -ForegroundColor DarkGray
-    $texto = Quitar-Duplicado (Transcribir -AudioFile $audioFile)
+    $textoCrudo = Transcribir -AudioFile $audioFile
+    Write-Host "DEBUG crudo: [$textoCrudo] (largo $($textoCrudo.Length))" -ForegroundColor Magenta
+    $texto = Quitar-Duplicado $textoCrudo
+    Write-Host "DEBUG despues de dedup: [$texto]" -ForegroundColor Magenta
     if ([string]::IsNullOrWhiteSpace($texto)) { Write-Host "No se entendio nada, proba de nuevo."; continue }
     Write-Host "Vos: $texto" -ForegroundColor Green
 
