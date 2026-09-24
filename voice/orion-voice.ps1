@@ -60,7 +60,10 @@ function Transcribir {
     if (Test-Path "$txtBase.txt") { Remove-Item "$txtBase.txt" -Force }
 
     Write-Host "--- salida de whisper.cpp ---" -ForegroundColor DarkGray
-    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt
+    # -bs 1 (beam size 1, decodificacion "greedy"): mucho mas rapido que el
+    # default (5 beams) y evita que repita la ultima frase por el silencio
+    # que queda al final de la grabacion.
+    & $WhisperExe -m $WhisperModel -f $AudioFile -l es -otxt -of $txtBase -nt -bs 1
     $exitCode = $LASTEXITCODE
     Write-Host "--- fin salida de whisper.cpp ---" -ForegroundColor DarkGray
 
@@ -72,7 +75,9 @@ function Transcribir {
         Write-Host "whisper.cpp no genero el archivo de texto. Revisa el mensaje de arriba." -ForegroundColor Red
         return ""
     }
-    return (Get-Content "$txtBase.txt" -Raw -Encoding UTF8).Trim()
+    # Se usa .NET directo para leer en UTF-8: Get-Content -Encoding UTF8 es
+    # poco confiable en PowerShell 5.1 con archivos sin BOM.
+    return [System.IO.File]::ReadAllText("$txtBase.txt", [System.Text.Encoding]::UTF8).Trim()
 }
 
 function Preguntar-Claude {
