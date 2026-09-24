@@ -84,7 +84,7 @@ function Hablar {
     param([string]$Texto)
     $wav = Join-Path $TempDir "respuesta.wav"
     $Texto | & $PiperExe --model $PiperVoice --output_file $wav
-    Start-Process -FilePath $SoxExe -ArgumentList "`"$wav`" -d" -NoNewWindow -Wait
+    & $SoxExe $wav -t waveaudio -d
 }
 
 function Guardar-Log {
