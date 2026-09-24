@@ -1,4 +1,4 @@
-# Jarvis OS
+# ORION
 
 Este proyecto es un "segundo cerebro con manos": Claude Code es el motor, `vault/`
 es la memoria, y las skills en `.claude/skills/` son las neuronas que se prenden

@@ -21,13 +21,13 @@ Nada de esto sale de tu máquina.
 4. **SoX** (grabar/reproducir audio desde la terminal) —
    https://sourceforge.net/projects/sox/
 
-Después, abrí `jarvis-voice.ps1` y ajustá las rutas de la sección `CONFIG`
+Después, abrí `orion-voice.ps1` y ajustá las rutas de la sección `CONFIG`
 a donde instalaste cada cosa.
 
 ## Correrlo
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\voice\jarvis-voice.ps1
+powershell -ExecutionPolicy Bypass -File .\voice\orion-voice.ps1
 ```
 
 Mantené SPACE apretada, hablá, soltala. `Ctrl+C` para salir.

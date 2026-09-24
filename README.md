@@ -1,6 +1,6 @@
-# Jarvis OS
+# ORION
 
-Segundo cerebro con manos, armado siguiendo la guía "Armá tu Jarvis OS" de
+Segundo cerebro con manos, armado siguiendo la guía "Armá tu ORION" de
 Juan Bertorello. Cuatro piezas modulares que se hablan por archivos, no por
 conexiones cerradas: **motor** (Claude Code + skills) → **memoria** (vault)
 → **voz** (whisper.cpp + Piper, local) → **cara** (HUD).
@@ -61,7 +61,7 @@ npx claude-mem install
 
 ## Paso 3 — La voz (opcional, corre en tu máquina, no acá)
 
-Ver `voice/README.md`. Script para Windows en `voice/jarvis-voice.ps1`.
+Ver `voice/README.md`. Script para Windows en `voice/orion-voice.ps1`.
 100% local: whisper.cpp escucha, Piper contesta.
 
 ## Paso 4 — El HUD

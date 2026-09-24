@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Circuito de voz de Jarvis OS (paso 3 de la guía) para Windows.
+    Circuito de voz de ORION (paso 3 de la guía) para Windows.
 
     Mantené apretada una tecla para grabar, soltala para procesar:
     grabar -> whisper.cpp (voz a texto, local) -> Claude Code -> Piper (texto a voz, local) -> reproducir.
@@ -23,13 +23,13 @@
 #>
 
 # ---------- CONFIG (ajustá estas rutas a tu instalación) ----------
-$WhisperExe   = "C:\jarvis\whisper.cpp\main.exe"
-$WhisperModel = "C:\jarvis\whisper.cpp\models\ggml-medium.bin"
-$PiperExe     = "C:\jarvis\piper\piper.exe"
-$PiperVoice   = "C:\jarvis\piper\es_AR-voice.onnx"
-$SoxExe       = "C:\jarvis\sox\sox.exe"
+$WhisperExe   = "C:\orion\whisper.cpp\main.exe"
+$WhisperModel = "C:\orion\whisper.cpp\models\ggml-medium.bin"
+$PiperExe     = "C:\orion\piper\piper.exe"
+$PiperVoice   = "C:\orion\piper\es_AR-voice.onnx"
+$SoxExe       = "C:\orion\sox\sox.exe"
 $VaultPedidos = Join-Path $PSScriptRoot "..\vault\pedidos"
-$TempDir      = Join-Path $env:TEMP "jarvis-voice"
+$TempDir      = Join-Path $env:TEMP "orion-voice"
 $RecordKey    = [System.ConsoleKey]::Spacebar
 # --------------------------------------------------------------------
 
@@ -83,7 +83,7 @@ function Guardar-Log {
 "@ | Out-File $logFile -Append -Encoding utf8
 }
 
-Write-Host "=== Jarvis OS — circuito de voz ===" -ForegroundColor Cyan
+Write-Host "=== ORION — circuito de voz ===" -ForegroundColor Cyan
 Write-Host "Ctrl+C para salir." -ForegroundColor DarkGray
 
 while ($true) {
@@ -98,7 +98,7 @@ while ($true) {
     Write-Host "Pensando..." -ForegroundColor DarkGray
     $respuesta = Preguntar-Claude -Texto $texto
 
-    Write-Host "Jarvis: $respuesta" -ForegroundColor Cyan
+    Write-Host "ORION: $respuesta" -ForegroundColor Cyan
     Hablar -Texto $respuesta
     Guardar-Log -Pregunta $texto -Respuesta $respuesta
 }
