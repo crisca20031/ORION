@@ -16,9 +16,19 @@ Las rutas de `orion-voice.ps1` ya están ajustadas a esta instalación:
 | Claude Code | instalado global (`npm install -g @anthropic-ai/claude-code`) |
 | whisper.cpp | `C:\orion\whisper.cpp\whisper-cli.exe` |
 | Modelo de voz a texto | `C:\orion\whisper.cpp\models\ggml-medium.bin` |
-| Piper | `C:\orion\piper\piper.exe` |
-| Voz de Piper | `C:\orion\piper\es_AR-daniela-high.onnx` |
+| Python | instalado desde python.org (con "Add to PATH") |
+| Piper | `pip install piper-tts` (paquete de Python, no el `.exe` original) |
+| Voz de Piper | `C:\orion\es_AR-daniela-high.onnx` (bajada con `python -m piper.download_voices es_AR-daniela-high`) |
 | SoX | `C:\Program Files (x86)\sox-14-4-2\sox.exe` |
+
+⚠️ El binario `piper.exe` original de github.com/rhasspy/piper **crashea
+siempre** en esta máquina (código `-1073740791`, falla dentro de
+`ucrtbase.dll`, un componente de Windows) — es una incompatibilidad entre
+cómo está compilado ese binario (proyecto archivado, sin mantenimiento
+desde 2023) y una build reciente de Windows, no algo arreglable desde el
+script. Se usa en su lugar el paquete de Python `piper-tts`
+(proyecto activo [OHF-Voice/piper1-gpl](https://github.com/OHF-Voice/piper1-gpl)),
+que no tiene ese problema.
 
 Si en algún momento reinstalás algo en otra ubicación, actualizá la
 sección `CONFIG` al principio de `orion-voice.ps1` con la ruta nueva.

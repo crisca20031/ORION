@@ -14,8 +14,11 @@
       2. whisper.cpp (Windows) -> https://github.com/ggerganov/whisper.cpp
          Compilalo o descarga un release, y un modelo en espanol (ej. ggml-medium.bin
          o el modelo "large-v3" para mejor precision con rioplatense).
-      3. Piper (TTS)           -> https://github.com/rhasspy/piper
-         Descarga el binario para Windows y una voz en castellano (ej. es_AR o es_ES).
+      3. Piper (TTS)           -> pip install piper-tts
+         (el binario .exe original de github.com/rhasspy/piper crashea en
+         builds recientes de Windows -- codigo 0xC0000409 en ucrtbase.dll.
+         El paquete de pip (proyecto OHF-Voice/piper1-gpl) no tiene ese bug.)
+         Voz: python -m piper.download_voices es_AR-daniela-high
       4. SoX o ffmpeg para grabar/reproducir audio desde la terminal
          -> https://sourceforge.net/projects/sox/  o  https://ffmpeg.org
 
@@ -23,21 +26,20 @@
 #>
 
 # ---------- CONFIG (ajusta estas rutas a tu instalacion) ----------
-$WhisperExe   = "C:\orion\whisper.cpp\whisper-cli.exe"
-$WhisperModel = "C:\orion\whisper.cpp\models\ggml-medium.bin"
-$PiperExe     = "C:\orion\piper\piper.exe"
-$PiperVoice   = "C:\orion\piper\es_AR-daniela-high.onnx"
-$SoxExe       = "C:\Program Files (x86)\sox-14-4-2\sox.exe"
-$VaultPedidos = Join-Path $PSScriptRoot "..\vault\pedidos"
-$TempDir      = Join-Path $env:TEMP "orion-voice"
+$WhisperExe    = "C:\orion\whisper.cpp\whisper-cli.exe"
+$WhisperModel  = "C:\orion\whisper.cpp\models\ggml-medium.bin"
+$PiperVoiceModel = "C:\orion\es_AR-daniela-high.onnx"
+$SoxExe        = "C:\Program Files (x86)\sox-14-4-2\sox.exe"
+$VaultPedidos  = Join-Path $PSScriptRoot "..\vault\pedidos"
+$TempDir       = Join-Path $env:TEMP "orion-voice"
 # --------------------------------------------------------------------
 
-# Forzar UTF-8 en toda la consola: sin esto, el texto con tildes que se le
-# pasa a Piper por la tuberia (|) puede llegar mal codificado y hacerlo
-# fallar (crash con codigo -1073740791).
+# Forzar UTF-8 en toda la consola y en la entrada/salida de Python: sin
+# esto, el texto con tildes puede llegar mal codificado a Piper.
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 [Console]::InputEncoding  = [System.Text.Encoding]::UTF8
 $OutputEncoding = [System.Text.Encoding]::UTF8
+$env:PYTHONIOENCODING = "utf-8"
 
 New-Item -ItemType Directory -Force -Path $TempDir, $VaultPedidos | Out-Null
 
@@ -133,27 +135,16 @@ function Hablar {
     $wav = Join-Path $TempDir "respuesta.wav"
     if (Test-Path $wav) { Remove-Item $wav -Force }
 
-    Write-Host "--- salida de piper ---" -ForegroundColor DarkGray
-    # En vez de pasarle el texto por la tuberia de PowerShell (|), que en
-    # algunos builds de Windows llega mal a programas nativos y los hace
-    # crashear (codigo -1073740791), se escribe a un archivo UTF-8 sin BOM
-    # y se lo redirige como entrada estandar via cmd.exe, byte a byte.
-    $txtIn = Join-Path $TempDir "respuesta_in.txt"
-    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
-    [System.IO.File]::WriteAllText($txtIn, $Texto, $utf8NoBom)
-
-    $piperDir = Split-Path $PiperExe -Parent
-    Push-Location $piperDir
-    try {
-        cmd /c "`"$PiperExe`" --model `"$PiperVoice`" --output_file `"$wav`" < `"$txtIn`""
-        $exitCode = $LASTEXITCODE
-    } finally {
-        Pop-Location
-    }
-    Write-Host "--- fin salida de piper (codigo $exitCode) ---" -ForegroundColor DarkGray
+    # El piper.exe original (github.com/rhasspy/piper) crasheaba siempre
+    # con codigo -1073740791 (falla dentro de ucrtbase.dll, un componente
+    # de Windows) en esta maquina, sin importar el texto ni como se lo
+    # invocara. Se reemplazo por el paquete de Python "piper-tts"
+    # (pip install piper-tts), que no tiene ese problema.
+    $Texto | python -m piper -m $PiperVoiceModel -f $wav | Out-Host
+    $exitCode = $LASTEXITCODE
 
     if (-not (Test-Path $wav) -or (Get-Item $wav).Length -eq 0) {
-        Write-Host "Piper no genero el audio (codigo $exitCode). Revisa que junto a piper.exe este la carpeta 'espeak-ng-data' (viene en el mismo .zip que descargaste) y que PiperVoice/PiperExe en CONFIG sean correctos." -ForegroundColor Red
+        Write-Host "Piper no genero el audio (codigo $exitCode). Revisa que 'pip install piper-tts' se haya instalado bien y que la ruta de PiperVoiceModel en CONFIG sea correcta." -ForegroundColor Red
         return
     }
     & $SoxExe $wav -t waveaudio -d
@@ -173,7 +164,7 @@ function Guardar-Log {
 "@ | Out-File $logFile -Append -Encoding utf8
 }
 
-Write-Host "=== ORION - circuito de voz (build 2026-09-24-09) ===" -ForegroundColor Cyan
+Write-Host "=== ORION - circuito de voz (build 2026-09-25-01) ===" -ForegroundColor Cyan
 Write-Host "Ctrl+C para salir." -ForegroundColor DarkGray
 
 while ($true) {
