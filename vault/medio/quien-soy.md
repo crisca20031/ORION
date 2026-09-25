@@ -40,6 +40,12 @@ información relevante, conecte fuentes, ejecute tareas y ayude a pasar de
 largo plazo es que ORIÓN se convierta en una infraestructura personal que
 acompañe mis proyectos, conocimientos, decisiones y aprendizaje.
 
+**Uso actual (2026-09-25):** por ahora uso ORIÓN para **asuntos personales**
+(estudio/Medicina, salud, aprendizaje de IA, desarrollo personal) — todavía
+no tengo un negocio en marcha, así que no me sugieras herramientas o
+skills orientadas a negocios/e-commerce hasta que yo lo pida. El interés en
+emprendimiento (más abajo) es una meta a futuro, no algo activo hoy.
+
 ## Mis principales áreas de interés
 
 - **Medicina** — medicina interna, pediatría, urgencias, cuidados críticos,
