@@ -1,6 +1,6 @@
-# ORION
+# ORIÓN
 
-Segundo cerebro con manos, armado siguiendo la guía "Armá tu ORION" de
+Segundo cerebro con manos, armado siguiendo la guía "Armá tu ORIÓN" de
 Juan Bertorello. Cuatro piezas modulares que se hablan por archivos, no por
 conexiones cerradas: **motor** (Claude Code + skills) → **memoria** (vault)
 → **voz** (whisper.cpp + Piper, local) → **cara** (HUD).
@@ -10,23 +10,24 @@ llegar al final para que valga la pena.
 
 ## Paso 1 — El motor
 
-Skills en `.claude/skills/`:
+Skills propias en `.claude/skills/`:
 
 - **plan** — arma las 3 prioridades del día en `vault/plan/`.
 - **inbox** — resume correo, agenda y novedades en `vault/salidas/`.
-- **metricas** — busca tus números y los deja en `vault/salidas/`.
-  ⚠️ Pendiente: completá tu fuente real en
-  `.claude/skills/metricas/SKILL.md` (panel, planilla, página).
+- **metricas** — **✅ completa** — lee `vault/crudo/metricas.md` (una
+  plantilla que completás vos a mano) y te resume cómo venís, en
+  `vault/salidas/`.
 - **vault** — lee y escribe notas sueltas en `vault/crudo/`.
 
 `CLAUDE.md` en la raíz tiene las reglas generales del sistema.
 
-Para sumar más skills (oficiales de Anthropic, Superpowers, las de Obsidian):
+Skill packs adicionales — **✅ instalados** (globales, disponibles en
+cualquier proyecto):
 
 ```bash
-npx skills add anthropics/skills -g
-npx skills add obra/superpowers -g
-npx skills add kepano/obsidian-skills -g
+npx skills add anthropics/skills -g      # documentos, planillas, diseño
+npx skills add obra/superpowers -g       # 86 skills de desarrollo
+npx skills add kepano/obsidian-skills    # formato correcto para el vault (por proyecto)
 ```
 
 ## Paso 2 — La memoria
@@ -46,25 +47,28 @@ vault/
 Completá `vault/medio/quien-soy.md` con tus datos reales — es lo primero que
 Claude lee para no tratarte como a un desconocido.
 
-Para abrirlo lindo y navegarlo como grafo, usá [Obsidian](https://obsidian.md)
-apuntando a esta carpeta, e instalá las skills del propio creador de Obsidian:
+Para abrirlo lindo y navegarlo como grafo — **✅ instalado**, usá
+[Obsidian](https://obsidian.md) apuntando a esta carpeta (`Open folder as
+vault`).
+
+Para memoria automática de sesiones (sin que hagas nada) — **✅ instalado**,
+corriendo local con tu propio plan de Claude, sin cuenta ni sincronización a
+la nube:
 
 ```bash
-npx skills add kepano/obsidian-skills
+npx claude-mem install --provider claude
 ```
 
-Para memoria automática de sesiones (sin que hagas nada):
+(El `--provider claude` es importante: sin él, el instalador pide crear una
+cuenta en cmem.ai. Con ese flag corre 100% en tu plan, sin cuenta.)
 
-```bash
-npx claude-mem install
-```
-
-## Paso 3 — La voz (opcional, corre en tu máquina, no acá)
+## Paso 3 — La voz — **✅ instalado y probado**
 
 Ver `voice/README.md`. Script para Windows en `voice/orion-voice.ps1`.
-100% local: whisper.cpp escucha, Piper contesta.
+100% local: whisper.cpp escucha, Piper (paquete `piper-tts` de Python)
+contesta con voz `es_ES-davefx-medium`.
 
-## Paso 4 — El HUD
+## Paso 4 — El HUD — **✅ armado**
 
 Panel oscuro de una sola pantalla que lee directo del vault (nunca inventa
 un dato: si falta, muestra un guion).
@@ -73,6 +77,23 @@ un dato: si falta, muestra un guion).
 python3 hud/server.py
 # abrí http://localhost:8420/hud/
 ```
+
+## Extras de la guía
+
+- **context7** (evita código desactualizado al programar) — ⏸️ pendiente a
+  propósito: requiere cuenta e internet, no es local como el resto. Se
+  instala con `npx ctx7 setup --claude` cuando haga falta.
+  Link de la guía: `github.com/upstash/context7`.
+- **Tarea programada** — **✅ armada**: "ORION Inbox" en el Programador de
+  tareas de Windows corre `/inbox` todos los días a las 7:00 y deja el
+  resumen en `vault/salidas/`. Requiere que la compu esté prendida y con
+  sesión iniciada a esa hora.
+  - Pausarla: `schtasks /change /tn "ORION Inbox" /disable`
+  - Reactivarla: `schtasks /change /tn "ORION Inbox" /enable`
+  - Borrarla: `schtasks /delete /tn "ORION Inbox" /f`
+- **Ollama** (modelos locales para tareas chicas: clasificar, resumir
+  corto, dejando a Claude para lo pesado) — **✅ instalado y probado**
+  (`ollama run gemma4`). Link de la guía: `github.com/ollama/ollama`.
 
 ## Orden recomendado
 
