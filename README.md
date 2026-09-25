@@ -14,9 +14,9 @@ Skills propias en `.claude/skills/`:
 
 - **plan** — arma las 3 prioridades del día en `vault/plan/`.
 - **inbox** — resume correo, agenda y novedades en `vault/salidas/`.
-- **metricas** — busca tus números y los deja en `vault/salidas/`.
-  ⚠️ Pendiente: completá tu fuente real en
-  `.claude/skills/metricas/SKILL.md` (panel, planilla, página).
+- **metricas** — **✅ completa** — lee `vault/crudo/metricas.md` (una
+  plantilla que completás vos a mano) y te resume cómo venís, en
+  `vault/salidas/`.
 - **vault** — lee y escribe notas sueltas en `vault/crudo/`.
 
 `CLAUDE.md` en la raíz tiene las reglas generales del sistema.
