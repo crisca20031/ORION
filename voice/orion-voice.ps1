@@ -18,7 +18,7 @@
          (el binario .exe original de github.com/rhasspy/piper crashea en
          builds recientes de Windows -- codigo 0xC0000409 en ucrtbase.dll.
          El paquete de pip (proyecto OHF-Voice/piper1-gpl) no tiene ese bug.)
-         Voz: python -m piper.download_voices es_AR-daniela-high
+         Voz: python -m piper.download_voices es_ES-davefx-medium
       4. SoX o ffmpeg para grabar/reproducir audio desde la terminal
          -> https://sourceforge.net/projects/sox/  o  https://ffmpeg.org
 
@@ -28,7 +28,7 @@
 # ---------- CONFIG (ajusta estas rutas a tu instalacion) ----------
 $WhisperExe    = "C:\orion\whisper.cpp\whisper-cli.exe"
 $WhisperModel  = "C:\orion\whisper.cpp\models\ggml-medium.bin"
-$PiperVoiceModel = "C:\orion\es_AR-daniela-high.onnx"
+$PiperVoiceModel = "C:\orion\es_ES-davefx-medium.onnx"
 $SoxExe        = "C:\Program Files (x86)\sox-14-4-2\sox.exe"
 $VaultPedidos  = Join-Path $PSScriptRoot "..\vault\pedidos"
 $TempDir       = Join-Path $env:TEMP "orion-voice"
@@ -164,7 +164,7 @@ function Guardar-Log {
 "@ | Out-File $logFile -Append -Encoding utf8
 }
 
-Write-Host "=== ORION - circuito de voz (build 2026-09-25-01) ===" -ForegroundColor Cyan
+Write-Host "=== ORION - circuito de voz (build 2026-09-25-02) ===" -ForegroundColor Cyan
 Write-Host "Ctrl+C para salir." -ForegroundColor DarkGray
 
 while ($true) {

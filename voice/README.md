@@ -18,7 +18,7 @@ Las rutas de `orion-voice.ps1` ya están ajustadas a esta instalación:
 | Modelo de voz a texto | `C:\orion\whisper.cpp\models\ggml-medium.bin` |
 | Python | instalado desde python.org (con "Add to PATH") |
 | Piper | `pip install piper-tts` (paquete de Python, no el `.exe` original) |
-| Voz de Piper | `C:\orion\es_AR-daniela-high.onnx` (bajada con `python -m piper.download_voices es_AR-daniela-high`) |
+| Voz de Piper | `C:\orion\es_ES-davefx-medium.onnx` (bajada con `python -m piper.download_voices es_ES-davefx-medium`) |
 | SoX | `C:\Program Files (x86)\sox-14-4-2\sox.exe` |
 
 ⚠️ El binario `piper.exe` original de github.com/rhasspy/piper **crashea
