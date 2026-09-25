@@ -1,0 +1,221 @@
+{
+  "main": {
+    "id": "367bd85ae8fc8d25",
+    "type": "split",
+    "children": [
+      {
+        "id": "d83034df65685190",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "28193c999d51fdd9",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Vista gráfica"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f280f39786dad425",
+    "type": "split",
+    "children": [
+      {
+        "id": "c11f4b9ae0702fc5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "668614fa577bbfce",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de archivos"
+            }
+          },
+          {
+            "id": "26595f68270ce76c",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Buscar"
+            }
+          },
+          {
+            "id": "7da3d4d3a09bf2bf",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "3631d945bb98b10c",
+    "type": "split",
+    "children": [
+      {
+        "id": "2375f8fb3843f6a5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ec62bd6b24b7d6d3",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Enlaces entrantes"
+            }
+          },
+          {
+            "id": "e60ab1e20e11f27f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Enlaces salientes"
+            }
+          },
+          {
+            "id": "ad36d9d5adcd7f1b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "49a6ecee9ebf1182",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas las propiedades"
+            }
+          },
+          {
+            "id": "c16d0b78dc5d02c8",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Esquema"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir selector rápido": false,
+      "graph:Abrir vista gráfica": false,
+      "canvas:Crear nuevo lienzo": false,
+      "daily-notes:Abrir la nota de hoy": false,
+      "templates:Insertar plantilla": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Crear nueva base": false
+    }
+  },
+  "active": "28193c999d51fdd9",
+  "lastOpenFiles": [
+    "pedidos/2026-09-24.md",
+    "crudo/Medicina/Fisiología/Ritmos fisiológicos.md",
+    "Sin título.canvas",
+    "2026-09-25.md",
+    "crudo/Medicina/Ritmos fisiológicos.md",
+    "crudo/Medicina/Cirugia",
+    "crudo/Medicina/Nueva carpeta",
+    "crudo/Medicina/Pediatria",
+    "crudo/Medicina/Medicina interna",
+    "crudo/Medicina/Ginecología",
+    "crudo/Medicina/Fisiología",
+    "crudo/medicina-claude/2025-11-20-ritmos-ultradianos-fisiologicos.md",
+    "crudo/Medicina/2026-09-22-analisis-de-caso-pediatrico-y-revision-tematica-neonatal.md",
+    "crudo/Medicina/2026-09-18-quemaduras-en-pediatria-presentacion-academica.md",
+    "crudo/Medicina/2026-09-12-revision-de-enfermedad-diarreica-aguda-en-pediatria.md",
+    "crudo/Medicina/2026-09-10-dengue-en-pediatria-presentacion-academica-integral.md",
+    "crudo/Medicina/2026-09-09-interpretacion-de-valoracion-nutricional-infantil.md",
+    "crudo/Medicina/2026-09-09-choque-pediatrico-reconocimiento-y-manejo-pals-aha-2025.md",
+    "crudo/Medicina/2026-09-08-revision-de-crisis-convulsiva-en-pediatria.md",
+    "crudo/Medicina/2026-08-27-revision-rapida-de-ictericia-neonatal-para-conversatorio-cli.md",
+    "crudo/Medicina/2026-08-24-analisis-sistematico-de-casos-clinicos-pediatricos.md",
+    "crudo/Medicina/2026-08-17-aiepi-neonatal.md",
+    "crudo/Medicina/2026-08-11-revision-de-liquidos-y-electrolitos-en-pediatria.md",
+    "crudo/Medicina/2026-08-10-rcp-pediatrico.md",
+    "crudo/Medicina/2026-08-10-nac-y-bronquilitis.md",
+    "crudo/Medicina/2026-08-05-reanimacion-cardiopulmonar-neonatal-revision-completa-basada.md",
+    "crudo/Medicina/2026-07-31-amenorrea-primaria-definicion-y-clasificacion.md",
+    "crudo/Medicina/2026-07-30-trastornos-hipertensivos-del-embarazo-para-medicos-generales.md",
+    "crudo/Medicina/2026-07-30-diabetes-gestacional-guia-para-medicos-generales.md",
+    "crudo/Medicina/2026-07-27-restriccion-del-crecimiento-intrauterino-guia-completa-para-.md",
+    "crudo/Medicina/2026-07-26-embarazo-ectopico-revision-clinica-para-medicos-generales.md",
+    "crudo/Medicina/2026-07-25-hemorragia-postparto-guia-clinica-para-medicos-generales.md",
+    "crudo/Medicina",
+    "crudo/medicina-claude"
+  ]
+}
