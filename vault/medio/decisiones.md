@@ -27,3 +27,12 @@ Se escribe de a una línea por vez, cuando pasa la cosa. -->
   con `ollama run gemma4`, funcionando. Con esto queda 100% completo todo
   lo que pide la guía "Armá tu ORIÓN", incluidos los extras opcionales
   (solo `context7` queda pendiente a propósito).
+- 2026-09-25 — Se importan 14 notas de estudio de medicina desde Google
+  Drive (carpeta "Pediatría", conector MCP) a `vault/crudo/medicina-drive/`,
+  siguiendo el mismo criterio que `vault/crudo/medicina-claude/`: contenido
+  fiel al material original, sin resumir de más ni inventar datos. Cubre
+  líquidos y electrolitos, ITU, STORCH, sepsis neonatal, RCP neonatal,
+  quemaduras, politrauma/TCE, pGALS, lactante febril sin foco, intoxicaciones,
+  infecciones del tracto respiratorio alto, hipoglucemia neonatal, dengue y
+  RCP pediátrica. Las 14 notas se extrajeron sin problemas (los 14 archivos
+  originales — PDFs y PPTX — sí tenían texto extraíble).
