@@ -15,3 +15,13 @@ Se escribe de a una línea por vez, cuando pasa la cosa. -->
   sincronizar nada a la nube — mantiene la misma filosofía 100% local
   del resto del sistema. Se declinó también la telemetría anónima, por
   el mismo motivo.
+- 2026-09-25 — Se completa el resto de la guía: Obsidian instalado y
+  apuntando a este vault, skills de Obsidian (`kepano/obsidian-skills`),
+  skills oficiales de Anthropic (`anthropics/skills`, 20 skills) y
+  Superpowers (`obra/superpowers`) instaladas globalmente. Se decidió
+  dejar `context7` pendiente (requiere cuenta e internet, no es local) y
+  se retoma solo si hace falta más adelante para programar. Se armó la
+  tarea "ORION Inbox" en el Programador de tareas de Windows: corre
+  `/inbox` todos los días a las 7:00 y deja el resumen en
+  `vault/salidas/`. Con esto queda completo todo lo que pide la guía
+  "Armá tu ORIÓN".
