@@ -53,11 +53,16 @@ apuntando a esta carpeta, e instalá las skills del propio creador de Obsidian:
 npx skills add kepano/obsidian-skills
 ```
 
-Para memoria automática de sesiones (sin que hagas nada):
+Para memoria automática de sesiones (sin que hagas nada) — **✅ instalado**,
+corriendo local con tu propio plan de Claude, sin cuenta ni sincronización a
+la nube:
 
 ```bash
-npx claude-mem install
+npx claude-mem install --provider claude
 ```
+
+(El `--provider claude` es importante: sin él, el instalador pide crear una
+cuenta en cmem.ai. Con ese flag corre 100% en tu plan, sin cuenta.)
 
 ## Paso 3 — La voz (opcional, corre en tu máquina, no acá)
 
