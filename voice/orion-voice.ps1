@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-    Circuito de voz de ORION (paso 3 de la guia) para Windows.
+    Circuito de voz de ORIÓN (paso 3 de la guia) para Windows.
 
     Apreta ENTER para grabar; se corta solo tras 1.5s de silencio:
     grabar -> whisper.cpp (voz a texto, local) -> Claude Code -> Piper (texto a voz, local) -> reproducir.
@@ -164,7 +164,7 @@ function Guardar-Log {
 "@ | Out-File $logFile -Append -Encoding utf8
 }
 
-Write-Host "=== ORION - circuito de voz (build 2026-09-25-02) ===" -ForegroundColor Cyan
+Write-Host "=== ORIÓN - circuito de voz (build 2026-09-25-03) ===" -ForegroundColor Cyan
 Write-Host "Ctrl+C para salir." -ForegroundColor DarkGray
 
 while ($true) {
@@ -179,7 +179,7 @@ while ($true) {
     Write-Host "Pensando..." -ForegroundColor DarkGray
     $respuesta = Preguntar-Claude -Texto $texto
 
-    Write-Host "ORION: $respuesta" -ForegroundColor Cyan
+    Write-Host "ORIÓN: $respuesta" -ForegroundColor Cyan
     Hablar -Texto $respuesta
     Guardar-Log -Pregunta $texto -Respuesta $respuesta
 }

@@ -1,6 +1,6 @@
-# ORION
+# ORIÓN
 
-Segundo cerebro con manos, armado siguiendo la guía "Armá tu ORION" de
+Segundo cerebro con manos, armado siguiendo la guía "Armá tu ORIÓN" de
 Juan Bertorello. Cuatro piezas modulares que se hablan por archivos, no por
 conexiones cerradas: **motor** (Claude Code + skills) → **memoria** (vault)
 → **voz** (whisper.cpp + Piper, local) → **cara** (HUD).

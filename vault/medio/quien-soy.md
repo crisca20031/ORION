@@ -4,7 +4,7 @@
 - Qué hago: estudiante de Medicina en formación clínica, orientado hacia
   medicina interna, con interés en desarrollar una visión integral del
   paciente y en aprender la mayor cantidad de áreas médicas posibles.
-- En qué estoy ahora: construyendo ORION, mi asistente personal de IA
+- En qué estoy ahora: construyendo ORIÓN, mi asistente personal de IA
   (inspirado en JARVIS), en el repo `ORION`.
 
 ## A qué me dedico
@@ -23,9 +23,9 @@ Fuera de Medicina, tengo fuerte interés en tecnología e IA. No me considero
 programador; me interesa más qué puedo construir con la tecnología que
 convertirme en experto tradicional en programación.
 
-## En qué estoy enfocado ahora: ORION
+## En qué estoy enfocado ahora: ORIÓN
 
-Proyecto central: construir **ORION**, un sistema personal de IA (inspirado
+Proyecto central: construir **ORIÓN**, un sistema personal de IA (inspirado
 en JARVIS de Iron Man) que funcione progresivamente como centro de
 operaciones digital para distintas áreas de mi vida — organizar
 información, gestionar proyectos, automatizar tareas, trabajar con
@@ -37,7 +37,7 @@ proyectos y objetivos.
 No busco un chatbot reactivo: quiero que comprenda contexto, recuerde
 información relevante, conecte fuentes, ejecute tareas y ayude a pasar de
 **IDEA → PLAN → EJECUCIÓN → PRUEBA → CORRECCIÓN → SISTEMA**. La visión de
-largo plazo es que ORION se convierta en una infraestructura personal que
+largo plazo es que ORIÓN se convierta en una infraestructura personal que
 acompañe mis proyectos, conocimientos, decisiones y aprendizaje.
 
 ## Mis principales áreas de interés
@@ -104,5 +104,5 @@ rápido y ejecutar mejor.
 Combinar **Medicina + Inteligencia Artificial + Tecnología + Emprendimiento
 + Desarrollo personal** en una sola trayectoria, no como objetivos
 aislados. Construir sistemas (no depender solo de motivación o memoria) que
-permitan avanzar de forma consistente, con ORION como infraestructura
+permitan avanzar de forma consistente, con ORIÓN como infraestructura
 personal que evoluciona junto con estos proyectos.
