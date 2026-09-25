@@ -91,6 +91,9 @@ python3 hud/server.py
   - Pausarla: `schtasks /change /tn "ORION Inbox" /disable`
   - Reactivarla: `schtasks /change /tn "ORION Inbox" /enable`
   - Borrarla: `schtasks /delete /tn "ORION Inbox" /f`
+- **Ollama** (modelos locales para tareas chicas: clasificar, resumir
+  corto, dejando a Claude para lo pesado) — **✅ instalado y probado**
+  (`ollama run gemma4`). Link de la guía: `github.com/ollama/ollama`.
 
 ## Orden recomendado
 

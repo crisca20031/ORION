@@ -23,5 +23,7 @@ Se escribe de a una línea por vez, cuando pasa la cosa. -->
   se retoma solo si hace falta más adelante para programar. Se armó la
   tarea "ORION Inbox" en el Programador de tareas de Windows: corre
   `/inbox` todos los días a las 7:00 y deja el resumen en
-  `vault/salidas/`. Con esto queda completo todo lo que pide la guía
-  "Armá tu ORIÓN".
+  `vault/salidas/`. También se instala Ollama (modelos locales) — probado
+  con `ollama run gemma4`, funcionando. Con esto queda 100% completo todo
+  lo que pide la guía "Armá tu ORIÓN", incluidos los extras opcionales
+  (solo `context7` queda pendiente a propósito).
